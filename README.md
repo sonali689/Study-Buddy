@@ -15,7 +15,7 @@ pip install -r requirements.txt
 
 ### 3. Download Models
 ```bash
-gdown models
+gdown --fuzzy https://drive.google.com/file/d/1mjcHiJI7H948FfcP2ALX-Z_CbmE06EJ3/view?usp=drive_link
 unzip models.zip
 ```
 
