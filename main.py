@@ -72,10 +72,10 @@ def demo_rag_agent():
     
     courses = get_available_courses()
     if not courses:
-        print("❌ No courses found in ./test_courses/")
+        print(" No courses found in ./test_courses/")
         return
     
-    print("🧠 Study Buddy - RAG Agent Demo")
+    print(" Study Buddy - RAG Agent Demo")
     print(f"Found {len(courses)} courses: {[c['name'] for c in courses]}")
     
     # Build knowledge base for all courses
