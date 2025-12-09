@@ -15,7 +15,7 @@ def main():
     
     args = parser.parse_args()
     
-    print("🚀 Starting Fine-tuning Pipeline")
+    print(" Starting Fine-tuning Pipeline")
     print("=" * 50)
     
     # Step 1: Prepare dataset
@@ -26,13 +26,13 @@ def main():
     print("\n2. Starting LoRA fine-tuning...")
     try:
         train_lora()
-        print("✅ Fine-tuning completed successfully!")
+        print(" Fine-tuning completed successfully!")
     except Exception as e:
-        print(f"❌ Fine-tuning failed: {e}")
+        print(f" Fine-tuning failed: {e}")
         return
     
-    print("\n🎉 Fine-tuning pipeline complete!")
-    print("📁 Fine-tuned model saved in: ./models/formatter_fine_tuned/")
+    print("\n Fine-tuning pipeline complete!")
+    print(" Fine-tuned model saved in: ./models/formatter_fine_tuned/")
 
 if __name__ == "__main__":
     main()
