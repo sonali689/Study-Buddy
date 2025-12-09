@@ -24,7 +24,7 @@ class LoRATrainer:
         """Load base model and tokenizer"""
         model_name = self.fine_tuning_config['base_model']
         
-        print(f"🔧 Loading model: {model_name}")
+        print(f" Loading model: {model_name}")
         
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
         if self.tokenizer.pad_token is None:
@@ -58,7 +58,7 @@ class LoRATrainer:
         """Load and tokenize dataset"""
         dataset_path = self.fine_tuning_config['dataset_path']
         
-        print(f"📚 Loading dataset from {dataset_path}")
+        print(f" Loading dataset from {dataset_path}")
         
         with open(dataset_path, 'r') as f:
             raw_data = json.load(f)
@@ -145,7 +145,7 @@ class LoRATrainer:
             data_collator=data_collator,
         )
         
-        print("🚀 Starting LoRA fine-tuning...")
+        print(" Starting LoRA fine-tuning...")
         
         # Start training
         trainer.train()
@@ -155,7 +155,7 @@ class LoRATrainer:
         trainer.save_model(final_output_dir)
         self.tokenizer.save_pretrained(final_output_dir)
         
-        print(f"✅ Training complete! Model saved to {final_output_dir}")
+        print(f" Training complete! Model saved to {final_output_dir}")
         
         return final_output_dir
 
@@ -165,10 +165,10 @@ def main():
     
     try:
         model_path = trainer.train()
-        print(f"🎉 Fine-tuning completed successfully!")
-        print(f"📁 Model saved at: {model_path}")
+        print(f" Fine-tuning completed successfully!")
+        print(f" Model saved at: {model_path}")
     except Exception as e:
-        print(f"❌ Fine-tuning failed: {e}")
+        print(f" Fine-tuning failed: {e}")
         raise
 
 if __name__ == "__main__":
