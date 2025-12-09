@@ -70,7 +70,7 @@ class QLoRATrainer:
             low_cpu_mem_usage=True
         )
         
-        print("✅ Model loaded with 4-bit quantization")
+        print(" Model loaded with 4-bit quantization")
         
         # Prepare model for k-bit training
         self.model = prepare_model_for_kbit_training(self.model)
@@ -92,13 +92,13 @@ class QLoRATrainer:
         # Print trainable parameters
         self.model.print_trainable_parameters()
         
-        print("✅ LoRA configuration applied")
+        print(" LoRA configuration applied")
 
     def load_and_tokenize_dataset(self):
         """Load and tokenize dataset with memory efficiency"""
         dataset_path = self.fine_tuning_config['dataset_path']
         
-        print(f"📚 Loading dataset from {dataset_path}")
+        print(f" Loading dataset from {dataset_path}")
         
         with open(dataset_path, 'r') as f:
             raw_data = json.load(f)
@@ -130,10 +130,10 @@ class QLoRATrainer:
                 formatted_texts.append(formatted_text)
                 
             except Exception as e:
-                print(f"⚠️ Skipping example {i} due to error: {e}")
+                print(f" Skipping example {i} due to error: {e}")
                 continue
         
-        print(f"✅ Formatted {len(formatted_texts)} examples")
+        print(f" Formatted {len(formatted_texts)} examples")
         
         # Create dataset in chunks to avoid memory issues
         def chunk_list(lst, chunk_size):
@@ -173,7 +173,7 @@ class QLoRATrainer:
         train_dataset = dataset.select(range(train_size))
         eval_dataset = dataset.select(range(train_size, len(dataset)))
         
-        print(f"📊 Dataset split: {len(train_dataset)} train, {len(eval_dataset)} eval")
+        print(f" Dataset split: {len(train_dataset)} train, {len(eval_dataset)} eval")
         
         return train_dataset, eval_dataset
 
@@ -238,8 +238,8 @@ class QLoRATrainer:
                 data_collator=data_collator,
             )
             
-            print("🚀 Starting QLoRA fine-tuning...")
-            print("💡 Training with 4-bit quantization and gradient checkpointing")
+            print(" Starting QLoRA fine-tuning...")
+            print(" Training with 4-bit quantization and gradient checkpointing")
             
             # Step 6: Start training
             trainer.train()
@@ -252,13 +252,13 @@ class QLoRATrainer:
             # Save LoRA config separately
             self.lora_config.save_pretrained(final_output_dir)
             
-            print(f"✅ Training complete! Model saved to {final_output_dir}")
+            print(f" Training complete! Model saved to {final_output_dir}")
             
             return final_output_dir
             
         except RuntimeError as e:
             if "out of memory" in str(e):
-                print("💥 CUDA Out of Memory! Try these solutions:")
+                print(" CUDA Out of Memory! Try these solutions:")
                 print("1. Reduce batch size or sequence length")
                 print("2. Increase gradient_accumulation_steps")
                 print("3. Use a smaller model")
@@ -274,16 +274,16 @@ def main():
     
     try:
         model_path = trainer.train()
-        print(f"🎉 QLoRA fine-tuning completed successfully!")
-        print(f"📁 Model saved at: {model_path}")
+        print(f" QLoRA fine-tuning completed successfully!")
+        print(f" Model saved at: {model_path}")
         
         # Print memory stats
         if torch.cuda.is_available():
-            print(f"💾 GPU Memory allocated: {torch.cuda.memory_allocated() / 1024**3:.2f} GB")
-            print(f"💾 GPU Memory reserved: {torch.cuda.memory_reserved() / 1024**3:.2f} GB")
+            print(f" GPU Memory allocated: {torch.cuda.memory_allocated() / 1024**3:.2f} GB")
+            print(f" GPU Memory reserved: {torch.cuda.memory_reserved() / 1024**3:.2f} GB")
             
     except Exception as e:
-        print(f"❌ QLoRA fine-tuning failed: {e}")
+        print(f" QLoRA fine-tuning failed: {e}")
         raise
 
 if __name__ == "__main__":
