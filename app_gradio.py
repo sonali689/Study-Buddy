@@ -39,10 +39,10 @@ app = StudyBuddyApp()
 def build_knowledge_base(course_name, files):
     """Build knowledge base from uploaded files"""
     if not course_name.strip():
-        return "❌ Please enter a course name"
+        return " Please enter a course name"
     
     if not files:
-        return "❌ Please upload at least one PDF or text file"
+        return " Please upload at least one PDF or text file"
     
     try:
         # Create course directory
@@ -65,10 +65,10 @@ def build_knowledge_base(course_name, files):
         app.rag_agent.build_knowledge_base(str(course_dir), course_name)
         app.current_course = course_name
         
-        return f"✅ Success! Built knowledge base for '{course_name}' with {len(files)} files"
+        return f" Success! Built knowledge base for '{course_name}' with {len(files)} files"
         
     except Exception as e:
-        return f"❌ Error: {str(e)}"
+        return f" Error: {str(e)}"
 
 def ask_question(question):
     """Ask a question about course materials"""
@@ -97,12 +97,12 @@ def format_to_latex(text, doc_type):
         result = app.formatter_agent.text_to_latex(text, doc_type)
         
         if result["is_valid"]:
-            return result["latex_code"], "✅ Successfully converted to LaTeX!"
+            return result["latex_code"], " Successfully converted to LaTeX!"
         else:
-            return "", f"❌ Conversion failed: {result.get('error', 'Unknown error')}"
+            return "", f" Conversion failed: {result.get('error', 'Unknown error')}"
             
     except Exception as e:
-        return "", f"❌ Error: {str(e)}"
+        return "", f" Error: {str(e)}"
 
 def create_demo():
     """Create the simplified Gradio interface"""
@@ -122,12 +122,12 @@ def create_demo():
         .error { color: red; }
         """
     ) as demo:
-        gr.Markdown("# 🧠 Study Buddy")
+        gr.Markdown("#  Study Buddy")
         gr.Markdown("AI-powered study assistant for course materials and LaTeX formatting")
         
         with gr.Tabs():
             # Tab 1: Course Setup
-            with gr.TabItem("📚 Setup Course"):
+            with gr.TabItem(" Setup Course"):
                 gr.Markdown("### Upload your course materials")
                 
                 with gr.Row():
@@ -145,7 +145,7 @@ def create_demo():
                             type="filepath"  # This returns file paths instead of file objects
                         )
                         
-                        build_btn = gr.Button("🚀 Build Knowledge Base", variant="primary")
+                        build_btn = gr.Button(" Build Knowledge Base", variant="primary")
                     
                     with gr.Column():
                         build_status = gr.Markdown("### Status: No course built yet")
@@ -157,7 +157,7 @@ def create_demo():
                 )
             
             # Tab 2: Ask Questions
-            with gr.TabItem("❓ Ask Questions"):
+            with gr.TabItem(" Ask Questions"):
                 gr.Markdown("### Ask questions about your course materials")
                 
                 with gr.Row():
@@ -167,7 +167,7 @@ def create_demo():
                             placeholder="e.g., What is the time complexity of DFS?",
                             lines=3
                         )
-                        ask_btn = gr.Button("🤖 Get Answer", variant="primary")
+                        ask_btn = gr.Button(" Get Answer", variant="primary")
                     
                     with gr.Column():
                         answer_output = gr.Textbox(
@@ -189,7 +189,7 @@ def create_demo():
                 )
             
             # Tab 3: Format LaTeX
-            with gr.TabItem("📝 Format LaTeX"):
+            with gr.TabItem(" Format LaTeX"):
                 gr.Markdown("### Convert text solutions to LaTeX")
                 
                 with gr.Row():
@@ -206,7 +206,7 @@ def create_demo():
                             value="homework"
                         )
                         
-                        format_btn = gr.Button("🔄 Convert to LaTeX", variant="primary")
+                        format_btn = gr.Button(" Convert to LaTeX", variant="primary")
                     
                     with gr.Column():
                         latex_output = gr.Code(
