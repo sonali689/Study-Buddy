@@ -4,8 +4,8 @@ Follow these simple steps to run the Study Buddy application:
 
 ### 1. Clone the Repository
 ```bash
-git clone <your-repo-address>
-cd DS-IntershipTask
+git clone https://github.com/sonali689/Study-Buddy
+cd Study-Buddy
 ```
 
 ### 2. Install Dependencies
